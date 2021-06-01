@@ -1,0 +1,14 @@
+print("Kur On Top- Loaded")
+
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+local namecall = mt.__namecall
+
+mt.__namecall = function(self,...)
+    local args = {...}
+    local method = getnamecallmethod()
+    if tostring(self) == "PlayAnim" and tostring(method) == "FireServer" and tostring(args[1]) == "Stamina" then
+        return nil
+    end
+    return namecall(self,...)
+end
